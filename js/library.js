@@ -21,7 +21,6 @@ const libModule = (() => {
     }
 
     for (let i = 0; i < myLibrary.length; i += 1) {
-
       const listItem = document.createElement('li');
       listItem.setAttribute('book-index', i);
 
@@ -40,8 +39,7 @@ const libModule = (() => {
         if (read.textContent === 'unread') {
           read.textContent = 'read';
           myLibrary[index].read = true;
-        }
-        else {
+        } else {
           read.textContent = 'unread';
           myLibrary[index].read = false;
         }
@@ -74,7 +72,6 @@ const libModule = (() => {
   }
 
   return { addBookToLibrary, displayBooks };
-
 })();
 
 libModule.addBookToLibrary('Tolkien', 'LOTR', 255, false);
