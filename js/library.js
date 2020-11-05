@@ -1,4 +1,3 @@
-const myLibrary = [];
 const form = document.querySelector('.form');
 const toggleForm = document.querySelector('.toggle-form');
 const addBookBtn = document.querySelector('.add-book');
@@ -18,14 +17,13 @@ addBookBtn.addEventListener('click', (e) => {
   if (bookAuthor === '' || bookTitle === '' || bookPages === '') {
     alert('Form inputs should not be empty');
   } else {
-    addBookToLibrary(bookAuthor, bookTitle, bookPages, bookRead);
+    libModule.addBookToLibrary(bookAuthor, bookTitle, bookPages, bookRead);
     form.reset();
   }
-  addBookToLibrary(bookAuthor, bookTitle, bookPages, bookRead);
-  form.reset();
 });
 
 const libModule = (() => {
+  const myLibrary = [];
 
   function Book(author, title, numPages, read) {
     this.author = author;
