@@ -71,13 +71,13 @@ const libModule = (() => {
     displayBooks();
   }
 
-  return { addBookToLibrary, displayBooks };
+  displayBooks();
+
+  return { addBookToLibrary };
 })();
 
 libModule.addBookToLibrary('Tolkien', 'LOTR', 255, false);
 libModule.addBookToLibrary('Hamil', 'Fast Book', 15, true);
-
-libModule.displayBooks();
 
 const form = document.querySelector('.form');
 const toggleForm = document.querySelector('.toggle-form');
