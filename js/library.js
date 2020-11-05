@@ -1,28 +1,5 @@
-const form = document.querySelector('.form');
-const toggleForm = document.querySelector('.toggle-form');
-const addBookBtn = document.querySelector('.add-book');
-const books = document.querySelector('.books');
-
-toggleForm.addEventListener('click', () => {
-  form.classList.toggle('no-display');
-});
-
-addBookBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  const bookAuthor = document.querySelector('.form-author').value;
-  const bookTitle = document.querySelector('.form-title').value;
-  const bookPages = document.querySelector('.form-num-pages').value;
-  const bookRead = document.querySelector('.form-read').checked;
-
-  if (bookAuthor === '' || bookTitle === '' || bookPages === '') {
-    alert('Form inputs should not be empty');
-  } else {
-    libModule.addBookToLibrary(bookAuthor, bookTitle, bookPages, bookRead);
-    form.reset();
-  }
-});
-
 const libModule = (() => {
+  const books = document.querySelector('.books');
   const myLibrary = [];
 
   function Book(author, title, numPages, read) {
@@ -104,3 +81,26 @@ libModule.addBookToLibrary('Tolkien', 'LOTR', 255, false);
 libModule.addBookToLibrary('Hamil', 'Fast Book', 15, true);
 
 libModule.displayBooks();
+
+const form = document.querySelector('.form');
+const toggleForm = document.querySelector('.toggle-form');
+const addBookBtn = document.querySelector('.add-book');
+
+toggleForm.addEventListener('click', () => {
+  form.classList.toggle('no-display');
+});
+
+addBookBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  const bookAuthor = document.querySelector('.form-author').value;
+  const bookTitle = document.querySelector('.form-title').value;
+  const bookPages = document.querySelector('.form-num-pages').value;
+  const bookRead = document.querySelector('.form-read').checked;
+
+  if (bookAuthor === '' || bookTitle === '' || bookPages === '') {
+    alert('Form inputs should not be empty');
+  } else {
+    libModule.addBookToLibrary(bookAuthor, bookTitle, bookPages, bookRead);
+    form.reset();
+  }
+});
