@@ -9,21 +9,15 @@ const libModule = (() => {
     this.read = read;
   }
 
-  function addBookToLibrary(author, title, numPages, read) {
-    const newBook = new Book(author, title, numPages, read);
-    myLibrary.push(newBook);
-    displayBooks();
-  }
-
   function displayBooks() {
     // loops through array and displays books
     books.textContent = '';
 
     function appendEl(type, text, property, parent, i) {
-      let el = document.createElement(type);
-      let prop = myLibrary[i][property]
-      el.textContent = `${text}: ${prop}`
-      parent.appendChild(el)
+      const el = document.createElement(type);
+      const prop = myLibrary[i][property];
+      el.textContent = `${text}: ${prop}`;
+      parent.appendChild(el);
     }
 
     for (let i = 0; i < myLibrary.length; i += 1) {
@@ -71,6 +65,12 @@ const libModule = (() => {
       listItem.appendChild(div);
       books.appendChild(listItem);
     }
+  }
+
+  function addBookToLibrary(author, title, numPages, read) {
+    const newBook = new Book(author, title, numPages, read);
+    myLibrary.push(newBook);
+    displayBooks();
   }
 
   return { addBookToLibrary, displayBooks };
