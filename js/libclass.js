@@ -30,7 +30,7 @@ class Lib {
       const div = document.createElement('div');
       appendEl('h2', 'Book Title', 'title', div, i);
       appendEl('h3', 'Book Author', 'author', div, i);
-      appendEl('p', 'No. Pages: ', 'numPages', div, i);
+      appendEl('p', 'No. Pages', 'numPages', div, i);
 
       const read = document.createElement('button');
       read.setAttribute('class', 'status-btn');
