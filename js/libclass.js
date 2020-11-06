@@ -1,47 +1,50 @@
-const libModule = (() => {
-  const books = document.querySelector('.books');
-  const myLibrary = [];
+function Book(author, title, numPages, read) {
+  this.author = author;
+  this.title = title;
+  this.numPages = numPages;
+  this.read = read;
+}
 
-  function Book(author, title, numPages, read) {
-    this.author = author;
-    this.title = title;
-    this.numPages = numPages;
-    this.read = read;
+class Lib {
+  constructor() {
+    this.library = [];
+    this.books = document.querySelector('.books');
   }
 
-  function displayBooks() {
+  displayBooks() {
     // loops through array and displays books
-    books.textContent = '';
+    this.books.textContent = '';
+    const libs = this.library;
 
     function appendEl(type, text, property, parent, i) {
       const el = document.createElement(type);
-      const prop = myLibrary[i][property];
+      const prop = libs[i][property];
       el.textContent = `${text}: ${prop}`;
       parent.appendChild(el);
     }
 
-    for (let i = 0; i < myLibrary.length; i += 1) {
+    for (let i = 0; i < this.library.length; i += 1) {
       const listItem = document.createElement('li');
       listItem.setAttribute('book-index', i);
 
       const div = document.createElement('div');
       appendEl('h2', 'Book Title', 'title', div, i);
       appendEl('h3', 'Book Author', 'author', div, i);
-      appendEl('p', 'No. Pages: ', 'numPages', div, i);
+      appendEl('p', 'No. Pages', 'numPages', div, i);
 
       const read = document.createElement('button');
       read.setAttribute('class', 'status-btn');
-      read.textContent = myLibrary[i].read ? 'read' : 'unread';
+      read.textContent = this.library[i].read ? 'read' : 'unread';
 
       read.onclick = function () {
         const index = this.parentNode.parentNode.getAttribute('book-index');
 
         if (read.textContent === 'unread') {
           read.textContent = 'read';
-          myLibrary[index].read = true;
+          this.library[index].read = true;
         } else {
           read.textContent = 'unread';
-          myLibrary[index].read = false;
+          this.library[index].read = false;
         }
       };
 
@@ -53,31 +56,26 @@ const libModule = (() => {
 
       deleteBtn.addEventListener('click', () => {
         const idx = deleteBtn.parentNode.parentNode.getAttribute('book-index');
-        myLibrary.splice(idx, 1);
-        displayBooks();
+        this.library.splice(idx, 1);
+        this.displayBooks();
       });
 
       div.appendChild(deleteBtn);
 
 
       listItem.appendChild(div);
-      books.appendChild(listItem);
+      this.books.appendChild(listItem);
     }
   }
 
-  function addBookToLibrary(author, title, numPages, read) {
-    const newBook = new Book(author, title, numPages, read);
-    myLibrary.push(newBook);
-    displayBooks();
+  addBook(author, title, numPages, read) {
+    const b = new Book(author, title, numPages, read);
+    this.library.push(b);
+    this.displayBooks();
   }
+}
 
-  displayBooks();
-
-  return { addBookToLibrary };
-})();
-
-libModule.addBookToLibrary('Tolkien', 'LOTR', 255, false);
-libModule.addBookToLibrary('Hamil', 'Fast Book', 15, true);
+const mylib = new Lib();
 
 const form = document.querySelector('.form');
 const toggleForm = document.querySelector('.toggle-form');
@@ -97,7 +95,10 @@ addBookBtn.addEventListener('click', (e) => {
   if (bookAuthor === '' || bookTitle === '' || bookPages === '') {
     alert('Form inputs should not be empty');
   } else {
-    libModule.addBookToLibrary(bookAuthor, bookTitle, bookPages, bookRead);
+    mylib.addBook(bookAuthor, bookTitle, bookPages, bookRead);
     form.reset();
   }
 });
+
+mylib.addBook('Tolkien', 'LOTR', 255, false);
+mylib.addBook('Hamil', 'Fast Book', 15, true);
