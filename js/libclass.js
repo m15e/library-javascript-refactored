@@ -6,7 +6,6 @@ function Book(author, title, numPages, read) {
 }
 
 class Lib {
-
   constructor() {
     this.library = [];
     this.books = document.querySelector('.books');
@@ -15,7 +14,7 @@ class Lib {
   displayBooks() {
     // loops through array and displays books
     this.books.textContent = '';
-    let libs = this.library;
+    const libs = this.library;
 
     function appendEl(type, text, property, parent, i) {
       const el = document.createElement(type);
@@ -74,9 +73,9 @@ class Lib {
     this.library.push(b);
     this.displayBooks();
   }
-
 }
 
+const mylib = new Lib();
 
 const form = document.querySelector('.form');
 const toggleForm = document.querySelector('.toggle-form');
@@ -100,8 +99,6 @@ addBookBtn.addEventListener('click', (e) => {
     form.reset();
   }
 });
-
-let mylib = new Lib();
 
 mylib.addBook('Tolkien', 'LOTR', 255, false);
 mylib.addBook('Hamil', 'Fast Book', 15, true);
